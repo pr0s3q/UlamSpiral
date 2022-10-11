@@ -1,0 +1,10 @@
+x64/*
+.vs/*
+*.obj
+*.log
+*.idb
+*.pdb
+*.ilk
+*.recipe
+_IsIncrementalBuild
+*.tlog
