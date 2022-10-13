@@ -1,52 +1,44 @@
-#include "iostream"
+#include "UlamSpiral.h"
+#include "CustomOpenGL.h"
 
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
 
-int main(void)
+UlamSpiral::UlamSpiral()
 {
-    GLFWwindow* window;
+}
 
-    /* Initialize the library */
-    if (!glfwInit())
-        return -1;
+UlamSpiral::UlamSpiral(int width, int height, const char* title)
+    : m_openGL(width, height, title)
+{
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+}
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
+UlamSpiral::~UlamSpiral()
+{
 
-    if (glewInit() != GLEW_OK)
-        std::cout << "Error!" << std::endl;
+}
 
-    std::cout << glGetString(GL_VERSION) << std::endl;
+std::string* UlamSpiral::GetErrorMessage()
+{
+    return m_openGL.GetErrorMessage();
+}
 
+void UlamSpiral::Init()
+{
+    m_openGL.DrawBasicTriangle();
+}
+
+bool UlamSpiral::IsValid()
+{
+    return m_openGL.IsValid();
+}
+
+void UlamSpiral::Loop()
+{
     /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window))
+    while (!m_openGL.ShouldTerminate())
     {
-        /* Render here */
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        /* Render sample triangle */
-        glBegin(GL_TRIANGLES);
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f( 0.0f,  0.5f);
-        glVertex2f( 0.5f, -0.5f);
-        glEnd();
-
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
-
-        /* Poll for and process events */
-        glfwPollEvents();
+        m_openGL.Loop();
     }
 
-    glfwTerminate();
-    return 0;
+    m_openGL.Terminate();
 }

@@ -8,3 +8,4 @@ x64/*
 *.recipe
 _IsIncrementalBuild
 *.tlog
+*.txt
