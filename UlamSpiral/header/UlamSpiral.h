@@ -10,6 +10,14 @@ class UlamSpiral
 public:
 
     /// <summary>
+    /// Run the UlamSpiral program.
+    /// </summary>
+    /// <returns>-1 if something went wrong. Otherwise 0</returns>
+    static int Run();
+
+private:
+
+    /// <summary>
     /// Default constructor. Create 640x480 window with "Window" title.
     /// Consider using overloaded constructor for custom sized window with custom title
     /// </summary>
@@ -26,29 +34,16 @@ public:
     ~UlamSpiral();
 
     /// <summary>
-    /// Returns error message
-    /// </summary>
-    /// <returns></returns>
-    std::string* GetErrorMessage();
-
-    /// <summary>
     /// Initialize UlamSpiral class
     /// </summary>
     void Init();
-
-    /// <summary>
-    /// Check if CustomOpenGL does not have any errors
-    /// </summary>
-    /// <returns></returns>
-    bool IsValid();
 
     /// <summary>
     /// Main loop of the app
     /// </summary>
     void Loop();
 
-private:
-    CustomOpenGL m_openGL;
+    CustomOpenGL openGL;
 };
 
 
