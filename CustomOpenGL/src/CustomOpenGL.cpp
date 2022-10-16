@@ -6,25 +6,38 @@
 
 #pragma region Constructors
 
+//---------------------------------------------------------------
+
 CustomOpenGL::CustomOpenGL()
     : window(0)
 {
     InitOpenGL(640, 480, "Window");
 }
 
-CustomOpenGL::CustomOpenGL(int width, int height, const char* title)
+//---------------------------------------------------------------
+
+CustomOpenGL::CustomOpenGL(
+    int width,
+    int height,
+    const char* title)
     : window(0)
 {
     InitOpenGL(width, height, title);
 }
 
+//---------------------------------------------------------------
+
 CustomOpenGL::~CustomOpenGL()
 {
 }
 
+//---------------------------------------------------------------
+
 #pragma endregion
 
 #pragma region Public Methods
+
+//---------------------------------------------------------------
 
 void CustomOpenGL::DrawBasicTriangle()
 {
@@ -44,6 +57,8 @@ void CustomOpenGL::DrawBasicTriangle()
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 }
 
+//---------------------------------------------------------------
+
 void CustomOpenGL::Loop()
 {
     /* Render here */
@@ -59,7 +74,13 @@ void CustomOpenGL::Loop()
     glfwPollEvents();
 }
 
-void CustomOpenGL::SetColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+//---------------------------------------------------------------
+
+void CustomOpenGL::SetColor(
+    unsigned char red,
+    unsigned char green,
+    unsigned char blue,
+    unsigned char alpha)
 {
 
     const std::string r = std::to_string(red / 255.0f);
@@ -88,10 +109,14 @@ void CustomOpenGL::SetColor(unsigned char red, unsigned char green, unsigned cha
     glUseProgram(shader);
 }
 
+//---------------------------------------------------------------
+
 bool CustomOpenGL::ShouldTerminate()
 {
     return glfwWindowShouldClose(window);
 }
+
+//---------------------------------------------------------------
 
 void CustomOpenGL::Terminate()
 {
@@ -99,11 +124,17 @@ void CustomOpenGL::Terminate()
     glfwTerminate();
 }
 
+//---------------------------------------------------------------
+
 #pragma endregion
 
 #pragma region Private Methods
 
-unsigned int CustomOpenGL::CompileShader(unsigned int type, const std::string& source)
+//---------------------------------------------------------------
+
+unsigned int CustomOpenGL::CompileShader(
+    unsigned int type,
+    const std::string& source)
 {
     unsigned int id = glCreateShader(type);
     const char* src = source.c_str();
@@ -118,7 +149,9 @@ unsigned int CustomOpenGL::CompileShader(unsigned int type, const std::string& s
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
         char* message = (char*)alloca(length * sizeof(char));
         glGetShaderInfoLog(id, length, &length, message);
-        SetOutcome((std::string)("Failed to compile " + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment") + " shader! \n" + message));
+        SetOutcome((std::string)("Failed to compile "
+            + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment")
+            + " shader! \n" + message));
         glDeleteShader(id);
         return 0;
     }
@@ -126,7 +159,12 @@ unsigned int CustomOpenGL::CompileShader(unsigned int type, const std::string& s
     return id;
 }
 
-void CustomOpenGL::CreateShader(const std::string& vertexShader, const std::string& fragmentShader, unsigned int& shader)
+//---------------------------------------------------------------
+
+void CustomOpenGL::CreateShader(
+    const std::string& vertexShader,
+    const std::string& fragmentShader,
+    unsigned int& shader)
 {
     shader = glCreateProgram();
     unsigned int vertex = CompileShader(GL_VERTEX_SHADER, vertexShader);
@@ -141,7 +179,12 @@ void CustomOpenGL::CreateShader(const std::string& vertexShader, const std::stri
     glDeleteShader(fragment);
 }
 
-void CustomOpenGL::InitOpenGL(int width, int height, const char* title)
+//---------------------------------------------------------------
+
+void CustomOpenGL::InitOpenGL(
+    int width,
+    int height,
+    const char* title)
 {
     if (!glfwInit())
     {
@@ -167,9 +210,13 @@ void CustomOpenGL::InitOpenGL(int width, int height, const char* title)
     }
 }
 
+//---------------------------------------------------------------
+
 void CustomOpenGL::SetOutcome(std::string errorMessage)
 {
     throw std::runtime_error(errorMessage.c_str());
 }
+
+//---------------------------------------------------------------
 
 #pragma endregion
