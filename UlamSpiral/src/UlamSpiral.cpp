@@ -40,10 +40,6 @@ int UlamSpiral::Run()
 {
     try
     {
-        /*int width = 1400;
-        int height = 1050;
-        const char* title = "Ulam Spiral";*/
-
         UlamSpiral ulamSpiral(width, height, title);
 
         ulamSpiral.Init();
@@ -69,7 +65,7 @@ int UlamSpiral::Run()
 
 void UlamSpiral::Init()
 {
-    openGL.DrawUlamSpiral(998001);
+    openGL.DrawUlamSpiral(3996001);
     openGL.SetColor(0, 255, 255, 255);
 }
 

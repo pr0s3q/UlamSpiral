@@ -21,15 +21,13 @@ bool Mathematic::IsPrime(unsigned int number)
 
 //---------------------------------------------------------------
 
-unsigned int Mathematic::PrimeAmount(unsigned int number)
+void Mathematic::PrimeAmount(unsigned int number, unsigned int& amount)
 {
-    unsigned int amount = 0;
     for (int i = 1; i <= number; i++)
     {
         if (IsPrime(i))
             amount++;
     }
-    return amount;
 }
 
 //---------------------------------------------------------------

@@ -116,13 +116,29 @@ void CustomOpenGL::DrawBasicSquare()
 void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
 {
     UlamOperationType type = UlamOperationType::addX;
-    unsigned int amount = 0, stepsLeft = 1, rotationLeft = 2, steps = 1, currentNumber = 1;
-    double precision = 0.0, posX = 0.0, posY = 0.0;
+    unsigned int primeAmount = 0, amount = 0, stepsLeft = 1, rotationLeft = 2, steps = 1, currentNumber = 1;
+    double precision = 0.0, posX = 0.0, posY = 0.0, distance = 0.0;
     std::vector<double> positions;
+
+    Mathematic::PrimeAmount(maxNumber, primeAmount);
+    UlamHelper::GetPrecision(maxNumber, precision);
+
+    if (maxNumber <= 39601)
+    {
+        distance = precision * 3 / 10;
+        amount = primeAmount * 12;
+        elementsCount = primeAmount * 6;
+        objectType = GL_TRIANGLES;
+    }
+    else
+    {
+        amount = primeAmount * 2;
+        elementsCount = primeAmount;
+        objectType = GL_POINTS;
+    }
+
     positions.reserve(amount);
 
-    UlamHelper::GetPrecision(maxNumber, precision);
-    amount = Mathematic::PrimeAmount(maxNumber) * 2;
     while (positions.size() != amount && posX < 1 && posY < 1 && posX > -1 && posY > -1)
     {
         while (rotationLeft != 0)
@@ -150,12 +166,35 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
                 }
                 if (posX >= 1 || posY >= 1 || posX <= -1 || posY <= -1)
                     break;
-                posX = round(posX * 10000) / 10000;
-                posY = round(posY * 10000) / 10000;
+                posX = round(posX * 1000000) / 1000000;
+                posY = round(posY * 1000000) / 1000000;
                 if (Mathematic::IsPrime(currentNumber))
                 {
-                    positions.emplace_back(posX);
-                    positions.emplace_back(posY);
+                    if (distance > 0.0)
+                    {
+                        positions.emplace_back(posX - distance);
+                        positions.emplace_back(posY - distance);
+
+                        positions.emplace_back(posX + distance);
+                        positions.emplace_back(posY - distance);
+
+                        positions.emplace_back(posX + distance);
+                        positions.emplace_back(posY + distance);
+
+                        positions.emplace_back(posX + distance);
+                        positions.emplace_back(posY + distance);
+
+                        positions.emplace_back(posX - distance);
+                        positions.emplace_back(posY + distance);
+
+                        positions.emplace_back(posX - distance);
+                        positions.emplace_back(posY - distance);
+                    }
+                    else
+                    {
+                        positions.emplace_back(posX);
+                        positions.emplace_back(posY);
+                    }
                 }
                 currentNumber++;
                 stepsLeft--;
@@ -186,8 +225,6 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
         rotationLeft = 2;
         steps++;
     }
-    elementsCount = positions.size() / 2;
-    objectType = GL_POINTS;
 
     std::vector<unsigned int> indicies;
     indicies.reserve(positions.size());
@@ -195,10 +232,12 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
     for (int i = 0; i < positions.size(); i++)
         indicies.emplace_back(i);
 
+    auto size = elementsCount * 2 * sizeof(double);
+
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(double), &positions[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, (unsigned long long)(elementsCount * 2) * sizeof(double), &positions[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 2, 0);
@@ -206,7 +245,7 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
     unsigned int indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount  * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
 }
 
 //---------------------------------------------------------------

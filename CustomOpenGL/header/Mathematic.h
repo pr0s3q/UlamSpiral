@@ -20,7 +20,7 @@ public:
     /// </summary>
     /// <param name="number"></param>
     /// <returns></returns>
-    static unsigned int PrimeAmount(unsigned int number);
+    static void PrimeAmount(unsigned int number, unsigned int& amount);
 
     //---------------------------------------------------------------
 };
