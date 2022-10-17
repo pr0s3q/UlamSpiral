@@ -1,7 +1,10 @@
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
+
 #include "CustomOpenGL.h"
 #include "Mathematic.h"
+#include "UlamHelper.h"
+#include "UlamOperationType.h"
 
 #include <iostream>
 #include <format>
@@ -73,6 +76,8 @@ void CustomOpenGL::DrawBasicTriangle()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount * 2 * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
 }
 
+//---------------------------------------------------------------
+
 void CustomOpenGL::DrawBasicSquare()
 {
     elementsCount = 6;
@@ -106,24 +111,19 @@ void CustomOpenGL::DrawBasicSquare()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
 }
 
-void CustomOpenGL::DrawUlamSpiral()
-{
-    enum class Type
-    {
-        addX = 0,
-        addY = 1,
-        removeX = 2,
-        removeY = 3
-    };
+//---------------------------------------------------------------
 
-    Type type = Type::addX;
-    unsigned char stepsLeft = 1, rotationLeft = 2, steps = 1, currentNumber = 1;
-    double posX = 0.0, posY = 0.0, numDif = 0.025;
+void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
+{
+    UlamOperationType type = UlamOperationType::addX;
+    unsigned int amount = 0, stepsLeft = 1, rotationLeft = 2, steps = 1, currentNumber = 1;
+    double precision = 0.0, posX = 0.0, posY = 0.0;
     std::vector<double> positions;
-    positions.reserve(3000);
-    positions.emplace_back(posX);
-    positions.emplace_back(posY);
-    while (positions.size() != 3000 && posX < 1 && posY < 1 && posX > -1 && posY > -1)
+    positions.reserve(amount);
+
+    UlamHelper::GetPrecision(maxNumber, precision);
+    amount = Mathematic::PrimeAmount(maxNumber) * 2;
+    while (positions.size() != amount && posX < 1 && posY < 1 && posX > -1 && posY > -1)
     {
         while (rotationLeft != 0)
         {
@@ -132,20 +132,20 @@ void CustomOpenGL::DrawUlamSpiral()
             {
                 switch (type)
                 {
-                case Type::addX:
-                    posX += numDif;
+                case UlamOperationType::addX:
+                    posX += precision;
                     break;
 
-                case Type::addY:
-                    posY += numDif;
+                case UlamOperationType::addY:
+                    posY += precision;
                     break;
 
-                case Type::removeX:
-                    posX -= numDif;
+                case UlamOperationType::removeX:
+                    posX -= precision;
                     break;
 
-                case Type::removeY:
-                    posY -= numDif;
+                case UlamOperationType::removeY:
+                    posY -= precision;
                     break;
                 }
                 if (posX >= 1 || posY >= 1 || posX <= -1 || posY <= -1)
@@ -165,20 +165,20 @@ void CustomOpenGL::DrawUlamSpiral()
             rotationLeft--;
             switch (type)
             {
-            case Type::addX:
-                type = Type::addY;
+            case UlamOperationType::addX:
+                type = UlamOperationType::addY;
                 break;
 
-            case Type::addY:
-                type = Type::removeX;
+            case UlamOperationType::addY:
+                type = UlamOperationType::removeX;
                 break;
 
-            case Type::removeX:
-                type = Type::removeY;
+            case UlamOperationType::removeX:
+                type = UlamOperationType::removeY;
                 break;
 
-            case Type::removeY:
-                type = Type::addX;
+            case UlamOperationType::removeY:
+                type = UlamOperationType::addX;
                 break;
             }
 
@@ -186,7 +186,7 @@ void CustomOpenGL::DrawUlamSpiral()
         rotationLeft = 2;
         steps++;
     }
-    elementsCount = positions.size();
+    elementsCount = positions.size() / 2;
     objectType = GL_POINTS;
 
     std::vector<unsigned int> indicies;
@@ -206,7 +206,7 @@ void CustomOpenGL::DrawUlamSpiral()
     unsigned int indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount  * sizeof(unsigned int), &indicies[0], GL_STATIC_DRAW);
 }
 
 //---------------------------------------------------------------

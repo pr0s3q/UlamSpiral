@@ -56,7 +56,7 @@ public:
     /// <summary>
     /// Draw Ulam Spiral
     /// </summary>
-    void DrawUlamSpiral();
+    void DrawUlamSpiral(unsigned int maxNumber);
 
     //---------------------------------------------------------------
 

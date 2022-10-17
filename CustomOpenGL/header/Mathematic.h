@@ -4,14 +4,23 @@ class Mathematic
 {
 public:
 
-	//---------------------------------------------------------------
+    //---------------------------------------------------------------
 
-	/// <summary>
-	/// Check if given number is prime. Based on https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-	/// </summary>
-	/// <param name="number"></param>
-	/// <returns></returns>
-	static bool IsPrime(unsigned int number);
+    /// <summary>
+    /// Check if given number is prime
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    static bool IsPrime(unsigned int number);
 
-	//---------------------------------------------------------------
+    //---------------------------------------------------------------
+
+    /// <summary>
+    /// Returns how many prome numbers are between 0 and given number
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    static unsigned int PrimeAmount(unsigned int number);
+
+    //---------------------------------------------------------------
 };

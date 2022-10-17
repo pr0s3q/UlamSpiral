@@ -158,8 +158,11 @@
   <ItemGroup>
     <ClInclude Include="header\CustomOpenGL.h" />
     <ClInclude Include="header\Mathematic.h" />
+    <ClInclude Include="header\UlamHelper.h" />
+    <ClInclude Include="header\UlamOperationType.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\UlamHelper.cpp" />
     <ClCompile Include="src\CustomOpenGL.cpp" />
     <ClCompile Include="src\Mathematic.cpp" />
   </ItemGroup>
