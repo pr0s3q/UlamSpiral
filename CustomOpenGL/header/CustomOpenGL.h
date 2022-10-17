@@ -47,6 +47,20 @@ public:
     //---------------------------------------------------------------
 
     /// <summary>
+    /// Draw basic square
+    /// </summary>
+    void DrawBasicSquare();
+
+    //---------------------------------------------------------------
+
+    /// <summary>
+    /// Draw Ulam Spiral
+    /// </summary>
+    void DrawUlamSpiral();
+
+    //---------------------------------------------------------------
+
+    /// <summary>
     /// Main loop
     /// </summary>
     void Loop();
@@ -135,6 +149,8 @@ private:
 
     //---------------------------------------------------------------
 
+    unsigned int objectType;
+    int elementsCount;
     unsigned int shader;
     GLFWwindow* window;
 

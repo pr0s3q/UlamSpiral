@@ -157,9 +157,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="header\CustomOpenGL.h" />
+    <ClInclude Include="header\Mathematic.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CustomOpenGL.cpp" />
+    <ClCompile Include="src\Mathematic.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

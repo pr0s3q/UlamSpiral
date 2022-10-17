@@ -32,7 +32,7 @@ UlamSpiral::~UlamSpiral()
 
 #pragma endregion
 
-#pragma Public Methods
+#pragma region Public Methods
 
 //---------------------------------------------------------------
 
@@ -69,8 +69,8 @@ int UlamSpiral::Run()
 
 void UlamSpiral::Init()
 {
-    openGL.DrawBasicTriangle();
-    openGL.SetColor(0, 150, 150, 255);
+    openGL.DrawUlamSpiral();
+    openGL.SetColor(0, 255, 255, 255);
 }
 
 //---------------------------------------------------------------

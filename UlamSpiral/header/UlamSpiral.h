@@ -62,8 +62,8 @@ private:
 
     //---------------------------------------------------------------
 
-    static const int width = 1400;
-    static const int height = 1050;
+    static const int width = 1000;
+    static const int height = 1000;
     static inline const char* title = "Ulam Spiral";
 
     CustomOpenGL openGL;

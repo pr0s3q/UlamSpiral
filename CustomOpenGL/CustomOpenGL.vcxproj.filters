@@ -18,9 +18,15 @@
     <ClInclude Include="header\CustomOpenGL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\Mathematic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CustomOpenGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mathematic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
