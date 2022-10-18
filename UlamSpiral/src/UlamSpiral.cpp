@@ -65,7 +65,7 @@ int UlamSpiral::Run()
 
 void UlamSpiral::Init()
 {
-    openGL.DrawUlamSpiral(3996001);
+    openGL.DrawUlamSpiral(159201);
     openGL.SetColor(0, 255, 255, 255);
 }
 
