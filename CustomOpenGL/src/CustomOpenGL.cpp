@@ -65,7 +65,7 @@ void CustomOpenGL::DrawBasicTriangle()
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(double), &positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<long long>(elementsCount * 2) * sizeof(double), &positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 2, 0);
@@ -73,7 +73,7 @@ void CustomOpenGL::DrawBasicTriangle()
     unsigned int indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, elementsCount * 2 * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, static_cast<long long>(elementsCount * 2) * sizeof(unsigned int), indicies, GL_STATIC_DRAW);
 }
 
 //---------------------------------------------------------------
@@ -100,7 +100,7 @@ void CustomOpenGL::DrawBasicSquare()
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(double), positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, static_cast<long long>(elementsCount * 2) * sizeof(double), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 2, 0);
