@@ -50,11 +50,11 @@ void CustomOpenGL::DrawBasicTriangle()
     elementsCount = 3;
     objectType = GL_TRIANGLES;
 
-    float positions[6] =
+    double positions[6] =
     {
-        -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f
+        -0.5 * scaleFactorX, -0.5 * scaleFactorY,
+         0.0 * scaleFactorX,  0.5 * scaleFactorY,
+         0.5 * scaleFactorX, -0.5 * scaleFactorY
     };
 
     unsigned int indicies[] =
@@ -65,10 +65,10 @@ void CustomOpenGL::DrawBasicTriangle()
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(float), &positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(double), &positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+    glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 2, 0);
 
     unsigned int indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
@@ -83,12 +83,12 @@ void CustomOpenGL::DrawBasicSquare()
     elementsCount = 6;
     objectType = GL_TRIANGLES;
 
-    float positions[] =
+    double positions[] =
     {
-        -0.5f, -0.5f, // 0
-         0.5f, -0.5f, // 1
-         0.5f,  0.5f, // 2
-        -0.5f,  0.5f  // 3
+        -0.5 * scaleFactorX, -0.5 * scaleFactorY, // 0
+         0.5 * scaleFactorX, -0.5 * scaleFactorY, // 1
+         0.5 * scaleFactorX,  0.5 * scaleFactorY, // 2
+        -0.5 * scaleFactorX,  0.5 * scaleFactorY  // 3
     };
 
     unsigned int indicies[] =
@@ -100,10 +100,10 @@ void CustomOpenGL::DrawBasicSquare()
     unsigned int buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(float), positions, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, elementsCount * 2 * sizeof(double), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+    glVertexAttribPointer(0, 2, GL_DOUBLE, GL_FALSE, sizeof(double) * 2, 0);
 
     unsigned int indexBufferObject;
     glGenBuffers(1, &indexBufferObject);
@@ -174,22 +174,22 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
                 {
                     if (scale)
                     {
-                        positions.emplace_back(posX - distance);
-                        positions.emplace_back(posY - distance);
+                        positions.emplace_back((posX - distance) * scaleFactorX);
+                        positions.emplace_back((posY - distance) * scaleFactorY);
 
-                        positions.emplace_back(posX + distance);
-                        positions.emplace_back(posY - distance);
+                        positions.emplace_back((posX + distance) * scaleFactorX);
+                        positions.emplace_back((posY - distance) * scaleFactorY);
 
-                        positions.emplace_back(posX + distance);
-                        positions.emplace_back(posY + distance);
+                        positions.emplace_back((posX + distance) * scaleFactorX);
+                        positions.emplace_back((posY + distance) * scaleFactorY);
 
-                        positions.emplace_back(posX - distance);
-                        positions.emplace_back(posY + distance);
+                        positions.emplace_back((posX - distance) * scaleFactorX);
+                        positions.emplace_back((posY + distance) * scaleFactorY);
                     }
                     else
                     {
-                        positions.emplace_back(posX);
-                        positions.emplace_back(posY);
+                        positions.emplace_back(posX * scaleFactorX);
+                        positions.emplace_back(posY * scaleFactorY);
                     }
                 }
                 currentNumber++;
@@ -408,6 +408,9 @@ void CustomOpenGL::InitOpenGL(
         SetOutcome("Cannot initialize GLEW");
         return;
     }
+
+    scaleFactorX = 1000.0 / width;
+    scaleFactorY = 1000.0 / height;
 }
 
 //---------------------------------------------------------------

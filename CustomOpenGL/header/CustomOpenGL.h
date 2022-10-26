@@ -149,9 +149,11 @@ private:
 
     //---------------------------------------------------------------
 
-    unsigned int objectType;
     int elementsCount;
+    unsigned int objectType;
     unsigned int shader;
+    double scaleFactorX;
+    double scaleFactorY;
     GLFWwindow* window;
 
     //---------------------------------------------------------------
