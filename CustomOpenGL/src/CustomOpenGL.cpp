@@ -227,7 +227,7 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
 
     if (scale)
     {
-        for (int i = 0; i < primeAmount; i++)
+        for (unsigned int i = 0; i < primeAmount; i++)
         {
             indicies.emplace_back(i * 4 + 0);
             indicies.emplace_back(i * 4 + 1);
@@ -239,7 +239,7 @@ void CustomOpenGL::DrawUlamSpiral(unsigned int maxNumber)
     }
     else
     {
-        for (int i = 0; i < amount; i++)
+        for (unsigned int i = 0; i < amount; i++)
             indicies.emplace_back(i);
     }
 
@@ -349,9 +349,9 @@ unsigned int CustomOpenGL::CompileShader(
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
         char* message = (char*)alloca(length * sizeof(char));
         glGetShaderInfoLog(id, length, &length, message);
-        SetOutcome((std::string)("Failed to compile "
-            + (std::string)(type == GL_VERTEX_SHADER ? "vertex" : "fragment")
-            + " shader! \n" + message));
+        SetOutcome("Failed to compile "
+            + static_cast<std::string>(type == GL_VERTEX_SHADER ? "vertex" : "fragment")
+            + " shader! \n" + message);
         glDeleteShader(id);
         return 0;
     }
